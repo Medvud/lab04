@@ -6,5 +6,5 @@ build_script:
   - mkdir _build
   - cmake -S . -B _build -DCMAKE_INSTALL_PREFIX=_install
   - cmake --build  _build
-  - cmake --build _build --target install
+  - cmake --build _build --config Release
 
