@@ -1,0 +1,25 @@
+language: cpp
+
+os: linux
+dist: focal
+
+compiler:
+  - gcc
+  - clang
+
+before_script:
+  - mkdir _build
+
+script:
+ - cmake -H . -B _build -DCMAKE_INSTALL_PREFIX=_install
+ - cmake --build  _build
+ - cmake --build _build --target install
+
+addons:
+  apt:
+    packages:
+      - cmake
+      - cmake-data
+      - gcc
+      - clang
+      - build-essential
