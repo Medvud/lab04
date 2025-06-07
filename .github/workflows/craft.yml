@@ -47,6 +47,6 @@ jobs:
 
       - name: Собираю windows
         run: |
-          mkdir "%GITHUB_WORKSPACE%\\_build"
+          mkdir "%GITHUB_WORKSPACE%\_build"
           cmake -S "%GITHUB_WORKSPACE%" -B "%GITHUB_WORKSPACE%\_build" -G "Visual Studio 17 2022" -A x64
           cmake --build "%GITHUB_WORKSPACE%\\_build" --config Release
