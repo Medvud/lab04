@@ -1,0 +1,52 @@
+name: craft
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  build-gcc:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Клонирую реп gcc
+        uses: actions/checkout@v3
+
+      - name: Устанавливаю зависимости gcc
+        run: |
+          sudo apt update
+          sudo apt install -y gcc g++ make
+
+      - name: Собираю gcc
+        run: |
+          mkdir -p $GITHUB_WORKSPACE/_build
+          cmake -S $GITHUB_WORKSPACE -B $GITHUB_WORKSPACE/_build -DCMAKE_CXX_COMPILER=g++
+          cmake --build $GITHUB_WORKSPACE/_build --target install
+
+  build-clang:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Клонирую реп clang
+        uses: actions/checkout@v3
+
+      - name: Устанавливаю зависимости clang
+        run: |
+          sudo apt update
+          sudo apt install -y clang make
+
+      - name: Собираю clang
+        run: |
+          mkdir -p $GITHUB_WORKSPACE/_build
+          cmake -S $GITHUB_WORKSPACE -B $GITHUB_WORKSPACE/_build -DCMAKE_CXX_COMPILER=clang
+          cmake --build $GITHUB_WORKSPACE/_build --target install
+
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - name: Клонирую реп windows
+        uses: actions/checkout@v3
+
+      - name: Собираю windows
+        run: |
+          mkdir "%GITHUB_WORKSPACE%\\_build"
+          cmake -S "%GITHUB_WORKSPACE%" -B "%GITHUB_WORKSPACE%\\_build" -G "Visual Studio 17 2022" -A x64
+          cmake --build "%GITHUB_WORKSPACE%\\_build" --config Release
